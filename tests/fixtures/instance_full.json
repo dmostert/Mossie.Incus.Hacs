@@ -1,0 +1,39 @@
+{
+  "architecture": "x86_64",
+  "backups": null,
+  "config": { "image.type": "oci", "oci.cwd": "/data", "volatile.idmap.current": "[{\"Isuid\":true,\"Isgid\":false,\"Hostid\":1000000,\"Nsid\":0,\"Maprange\":1000000000}]", "volatile.last_state.power": "STOPPED" },
+  "created_at": "2026-10-20T19:23:58.684161742Z",
+  "description": "",
+  "devices": {
+    "eth0": { "hwaddr": "00:16:3e:AA:BB:CC", "nictype": "bridged", "parent": "br0", "type": "nic" },
+    "extraStorage": { "path": "/mnt/stuff", "pool": "default", "source": "testing-123", "type": "disk" }
+  },
+  "ephemeral": false,
+  "expanded_config": { "image.type": "oci" },
+  "expanded_devices": {
+    "eth0": { "hwaddr": "00:16:3e:AA:BB:CC", "nictype": "bridged", "parent": "br0", "type": "nic" },
+    "root": { "path": "/", "pool": "default", "type": "disk" }
+  },
+  "last_used_at": "2026-10-21T14:39:49.800660257Z",
+  "location": "none",
+  "name": "my-container",
+  "profiles": [ "default" ],
+  "project": "homelab",
+  "snapshots": null,
+  "state": {
+    "cpu": { "allocated_time": 0, "usage": 0 },
+    "disk": { "extraStorage": { "total": 0, "usage": -1 }, "root": { "total": 0, "usage": -1 } },
+    "memory": { "swap_usage": 0, "swap_usage_peak": 0, "total": 0, "usage": 0, "usage_peak": 0 },
+    "network": null,
+    "os_info": null,
+    "pid": 0,
+    "processes": 0,
+    "started_at": "0001-01-01T00:00:00Z",
+    "status": "Stopped",
+    "status_code": 102
+  },
+  "stateful": false,
+  "status": "Stopped",
+  "status_code": 102,
+  "type": "container"
+}

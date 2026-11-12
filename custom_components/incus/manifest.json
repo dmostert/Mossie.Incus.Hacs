@@ -1,0 +1,12 @@
+{
+  "domain": "incus",
+  "name": "Incus",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://github.com/OWNER/ha-incus",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/OWNER/ha-incus/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,249 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Incus",
+        "description": "How should Home Assistant reach your Incus server?",
+        "menu_options": {
+          "https": "Remote server (HTTPS, port 8443)",
+          "unix": "Local Unix socket"
+        }
+      },
+      "https": {
+        "title": "Incus server address",
+        "description": "The server must listen on the network: `incus config set core.https_address :8443`.",
+        "data": {
+          "url": "URL",
+          "verify": "Certificate verification"
+        }
+      },
+      "auth": {
+        "title": "Authenticate",
+        "description": "Server certificate fingerprint (verify it against `incus info`): `{fingerprint}`",
+        "menu_options": {
+          "token": "Create a client certificate with a trust token (recommended)",
+          "existing": "Use an existing client certificate"
+        }
+      },
+      "token": {
+        "title": "Trust token",
+        "description": "Run `incus config trust add home-assistant` on the server and paste the token it prints. Home Assistant generates its own client certificate and registers it.",
+        "data": {
+          "trust_token": "Trust token",
+          "client_name": "Client name"
+        }
+      },
+      "existing": {
+        "title": "Client certificate",
+        "description": "PEM client certificate and key already trusted by the server (`incus config trust add-certificate`).",
+        "data": {
+          "client_cert": "Client certificate (PEM)",
+          "client_key": "Client private key (PEM)"
+        }
+      },
+      "unix": {
+        "title": "Unix socket",
+        "description": "Path of the Incus socket as seen by Home Assistant (the socket must be mounted into the container if HA runs in one).",
+        "data": {
+          "socket_path": "Socket path"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the Incus server: {error}",
+      "invalid_token": "The server rejected the trust token (expired or already used): {error}",
+      "not_trusted": "Connected, but the server does not trust this client certificate (auth={error})."
+    },
+    "abort": {
+      "already_configured": "This Incus server is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Incus options",
+        "description": "What do you want to change?",
+        "menu_options": {
+          "settings": "Projects, update intervals and change notifications",
+          "inventory": "Rescan the server and choose what to monitor"
+        }
+      },
+      "settings": {
+        "title": "Incus settings",
+        "data": {
+          "projects": "Projects (comma separated, or * for all)",
+          "scan_interval": "Instance update interval (seconds)",
+          "volume_scan_interval": "Storage update interval (seconds)",
+          "notify_changes": "Notify when instances, pools or volumes are added or removed"
+        }
+      },
+      "inventory": {
+        "title": "What to monitor",
+        "description": "Current contents of the server: {summary}. Checked items are monitored; uncheck what you don't want. Items marked (new) appeared since you last reviewed.",
+        "data": {
+          "monitored_instances": "Instances",
+          "monitored_pools": "Storage pools",
+          "monitored_volumes": "Custom volumes"
+        }
+      }
+    },
+    "error": {
+      "invalid_projects": "Enter at least one project name, or *."
+    },
+    "abort": {
+      "cannot_connect": "Could not read the server inventory: {error}",
+      "nothing_to_select": "The server has no instances, storage pools or custom volumes in the monitored projects."
+    }
+  },
+  "selector": {
+    "verify": {
+      "options": {
+        "pin": "Trust this server's certificate (pin it)",
+        "system": "Verify with the system CA store",
+        "skip": "Do not verify (insecure)"
+      }
+    }
+  },
+  "services": {
+    "start_instance": {
+      "name": "Start instance",
+      "description": "Starts an instance.",
+      "fields": {
+        "instance": {
+          "name": "Instance",
+          "description": "Instance name (when not using a device/entity target)."
+        },
+        "project": {
+          "name": "Project",
+          "description": "Incus project of the instance."
+        },
+        "config_entry": {
+          "name": "Server",
+          "description": "Which Incus server, if several are configured."
+        },
+        "force": {
+          "name": "Force",
+          "description": "Kill instead of shutting down gracefully (stop/restart)."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Graceful shutdown timeout in seconds (-1 = server default)."
+        }
+      }
+    },
+    "stop_instance": {
+      "name": "Stop instance",
+      "description": "Stops an instance.",
+      "fields": {
+        "instance": {
+          "name": "Instance",
+          "description": "Instance name (when not using a device/entity target)."
+        },
+        "project": {
+          "name": "Project",
+          "description": "Incus project of the instance."
+        },
+        "config_entry": {
+          "name": "Server",
+          "description": "Which Incus server, if several are configured."
+        },
+        "force": {
+          "name": "Force",
+          "description": "Kill instead of shutting down gracefully (stop/restart)."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Graceful shutdown timeout in seconds (-1 = server default)."
+        }
+      }
+    },
+    "restart_instance": {
+      "name": "Restart instance",
+      "description": "Restarts an instance.",
+      "fields": {
+        "instance": {
+          "name": "Instance",
+          "description": "Instance name (when not using a device/entity target)."
+        },
+        "project": {
+          "name": "Project",
+          "description": "Incus project of the instance."
+        },
+        "config_entry": {
+          "name": "Server",
+          "description": "Which Incus server, if several are configured."
+        },
+        "force": {
+          "name": "Force",
+          "description": "Kill instead of shutting down gracefully (stop/restart)."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Graceful shutdown timeout in seconds (-1 = server default)."
+        }
+      }
+    },
+    "freeze_instance": {
+      "name": "Freeze instance",
+      "description": "Freezes (pauses) a running instance.",
+      "fields": {
+        "instance": {
+          "name": "Instance",
+          "description": "Instance name (when not using a device/entity target)."
+        },
+        "project": {
+          "name": "Project",
+          "description": "Incus project of the instance."
+        },
+        "config_entry": {
+          "name": "Server",
+          "description": "Which Incus server, if several are configured."
+        },
+        "force": {
+          "name": "Force",
+          "description": "Not used for freeze."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Operation timeout in seconds."
+        }
+      }
+    },
+    "unfreeze_instance": {
+      "name": "Unfreeze instance",
+      "description": "Resumes a frozen instance.",
+      "fields": {
+        "instance": {
+          "name": "Instance",
+          "description": "Instance name (when not using a device/entity target)."
+        },
+        "project": {
+          "name": "Project",
+          "description": "Incus project of the instance."
+        },
+        "config_entry": {
+          "name": "Server",
+          "description": "Which Incus server, if several are configured."
+        },
+        "force": {
+          "name": "Force",
+          "description": "Not used for unfreeze."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Operation timeout in seconds."
+        }
+      }
+    },
+    "rescan_inventory": {
+      "name": "Rescan inventory",
+      "description": "Re-reads instances, storage pools and custom volumes now; additions and removals are reported and entities added or removed.",
+      "fields": {
+        "config_entry": {
+          "name": "Server",
+          "description": "Which Incus server, if several are configured."
+        }
+      }
+    }
+  }
+}
